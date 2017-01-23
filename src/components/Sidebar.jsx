@@ -19,7 +19,8 @@ const Sidebar = ({store}) => {
     {component: 'Icons.jsx', icon: 'bubble_chart', label: 'Icons'},
     {component: 'Maps.jsx', icon: 'location_on', label: 'Maps'},
     {component: 'Notifications.jsx', icon: 'notifications', label: 'Notifications'},
-    {component: 'Upgrade.jsx', icon: 'unarchive', label: 'Upgrade'}
+    {component: 'Upgrade.jsx', icon: 'unarchive', label: 'Upgrade'},
+    {component: 'Test.jsx', icon: 'unarchive', label: 'Test'}
   ]
   return (
     <div className="sidebar" data-color="purple" data-image={ImgSidebar}>
