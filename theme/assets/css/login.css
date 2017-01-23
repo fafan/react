@@ -1,0 +1,58 @@
+.login-page > .content,
+.lock-page > .content {
+  padding-top: 18vh;
+}
+
+.login-page .card-login {
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+  border-radius: 6px;
+  padding-bottom: 20px;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.login-page .card-login .btn-wd {
+  min-width: 180px;
+}
+.login-page .card-login .card-header {
+  margin-top: -40px;
+  margin-bottom: 20px;
+}
+.login-page .card-login .card-header .title {
+  margin-top: 10px;
+}
+
+.card-login .card-title {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+.card-login .text-divider {
+  margin-top: 30px;
+  margin-bottom: 0px;
+  text-align: center;
+}
+.card-login .card-content {
+  padding: 0px 30px 0px 10px;
+}
+.card-login .checkbox {
+  margin-top: 20px;
+}
+.card-login .checkbox label {
+  margin-left: 17px;
+}
+.card-login .checkbox .checkbox-material {
+  padding-right: 12px;
+}
+.card-login .social-line {
+  margin-top: 15px;
+  text-align: center;
+  padding: 0;
+}
+.card-login .social-line .btn {
+  color: #FFFFFF;
+  margin-left: 5px;
+  margin-right: 5px;
+}
