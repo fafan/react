@@ -2,6 +2,7 @@ var webpack = require('webpack');
 var path = require("path");
 var extract = require('extract-text-webpack-plugin');
 var themecss = new extract('css/theme.css');
+var api = (process.env.npm_lifecycle_script.split(' ')[1]).replace('--', '')
 
 module.exports = {
   entry: {
@@ -13,7 +14,7 @@ module.exports = {
       path.resolve(__dirname, "theme") + '/assets/js/polyfill.js'
     ],
     'api': [
-      path.resolve(__dirname, "api") + '/' + process.env.API + '.js',
+      path.resolve(__dirname, "api") + '/' + api + '.js',
       path.resolve(__dirname, "api") + '/ping.js'
     ],
     'app': [

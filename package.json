@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
-    "start": "API=development webpack-dev-server --progress --colors --host localhost --port 8080 --debug --hot",
-    "dist": "API=production webpack --progress --colors",
+    "start": "webpack-dev-server --development --progress --colors --host localhost --port 8080 --debug --hot",
+    "dist": "webpack --production --progress --colors",
     "backup": "zip -x *.git* -x *.DS_Store* -x *node_modules* -x *dist* -x *coverage* -r backup.zip cms_v2.1/",
     "test": "node_modules/.bin/babel-node node_modules/.bin/_mocha --colors",
     "junit": "JUNIT_REPORT_PATH=test/junit.xml node_modules/.bin/babel-node node_modules/.bin/_mocha --colors --reporter mocha-jenkins-reporter",
