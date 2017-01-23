@@ -15,7 +15,7 @@ import '../../theme/assets/css/login.css'
 import '../index.html'
 
 // Components
-import AppStore from './AppStore.jsx'
+import AppStore, { loadStateFromWebstorage } from './AppStore.jsx'
 import Login from './Login.jsx'
 import Sidebar from './Sidebar.jsx'
 import MainPanel from './MainPanel.jsx'
@@ -32,7 +32,8 @@ if (!authenticated) {
   )
 }
 else {
-  AppStore.dispatch({ type: 'PUSH', component: 'Dashboard.jsx' })
+  if (loadStateFromWebstorage() == undefined) AppStore.dispatch({ type: 'PUSH', component: 'Dashboard.jsx' })
+  
   render(
     <Provider store={AppStore}>
       <div className="wrapper">

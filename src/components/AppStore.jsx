@@ -1,19 +1,21 @@
 // Packages
 import { createStore } from 'redux'
-import { List } from 'immutable'
+import Immutable from 'immutable'
 
 // Define store, reducer, state, and action
 var AppStore = createStore(
-  function (state = List(), action) {
+  function (state = Immutable.List(), action) {
     // state initialization
     if (action.type == '@@redux/INIT') {
-      //console.log(state)
+      var state_data = loadStateFromWebstorage()
+      if (state_data) state_data.map(function(value, index){ state = state.push(value) })
       return state
     }
     // log to console except result data
     var actionLog = {}
     Object.keys(action).forEach(function(key,index) { if (key != 'result') actionLog[key] = action[key] })
     console.log('ACTION REQUEST: ' + JSON.stringify(actionLog))
+    console.log('WEBSTORAGE: ' + JSON.stringify(loadStateFromWebstorage()) )
 
     // execute action
     switch (action.type) {
@@ -58,6 +60,9 @@ var AppStore = createStore(
             type: action.service.request.method,
             data: action.service.request.params,
             dataType: 'json',
+            beforeSend: function (xhr) {
+              xhr.setRequestHeader('Authorization', 'Bearer ' + state.last().authorization.bearer)
+            },
             success: function (data) {
               AppStore.dispatch({
                 type: 'API_RESPONSE',
@@ -104,60 +109,25 @@ var AppStore = createStore(
         })
         return state
 
-      case 'DATATABLE':
-        console.log('DATATABLE ACTION')
-        console.log(action)
-        jQuery(document).ready(function($) {
-          var table = $('#' + action.id).DataTable({
-            retrieve: true,
-            columns: action.columns,
-            "lengthMenu": [
-              [10, 25, 50, -1],
-              [10, 25, 50, "All"]
-            ],
-            language: {
-              search: "_INPUT_",
-              searchPlaceholder: "Search vendor",
-            }
-          })
-          $('.material-datatables').addClass('form-group');
-          table
-            .on('search.dt', function() {
-              AppStore.dispatch({ type: 'DATATABLE_SEARCH' })
-            })
-            .on('page.dt', function(a, b, c) {
-              console.log(a)
-              console.log(b)
-              console.log(c)
-
-              AppStore.dispatch({ type: 'DATATABLE_PAGE' })
-            })
-          table.clear()
-          table.rows.add(action.data.list)
-          table.draw()
-        })
-        return state
-
       default:
         return state
     }
   }
 )
 
-
 // Save state to webstorage
-function saveStateToWebstorage(state) {
+export function saveStateToWebstorage(state) {
   if (typeof(Storage) !== "undefined") {
-    sessionStorage.state = JSON.stringify(state)
+    localStorage.state = JSON.stringify(state)
   } else {
     console.log('No Web Storage support')
   }
 }
 
 // Load state from webstorage
-function loadStateFromWebstorage() {
+export function loadStateFromWebstorage() {
   if (typeof(Storage) !== "undefined") {
-    return sessionStorage.state ? JSON.parse(sessionStorage.state) : undefined
+    return localStorage.state ? JSON.parse(localStorage.state) : undefined
   } else {
     console.log('No Web Storage support')
     return undefined
