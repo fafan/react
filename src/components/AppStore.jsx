@@ -5,17 +5,22 @@ import Immutable from 'immutable'
 // Define store, reducer, state, and action
 var AppStore = createStore(
   function (state = Immutable.List(), action) {
+
     // state initialization
     if (action.type == '@@redux/INIT') {
       var state_data = loadStateFromWebstorage()
-      if (state_data) state_data.map(function(value, index){ state = state.push(value) })
+      if (state_data) state = Immutable.List(state_data)
       return state
     }
+
+    // limit state buffer to max = 5
+    if (state.size >= 5) state = state.delete(0)
+
     // log to console except result data
     var actionLog = {}
     Object.keys(action).forEach(function(key,index) { if (key != 'result') actionLog[key] = action[key] })
     console.log('ACTION REQUEST: ' + JSON.stringify(actionLog))
-    console.log('WEBSTORAGE: ' + JSON.stringify(loadStateFromWebstorage()) )
+    //console.log('WEBSTORAGE: ' + JSON.stringify(loadStateFromWebstorage()) )
 
     // execute action
     switch (action.type) {
